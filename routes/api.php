@@ -30,7 +30,7 @@ Route::post('addbuku','bukuController@addbuku')->middleware('jwt.verify');
 Route::put('updatebuku/{buku}','bukuController@updatebuku')->middleware('jwt.verify');
 Route::delete('deletebuku/{buku}','bukuController@destroy')->middleware('jwt.verify');
 //anggota
-Route::post('searchanggota','bukuController@search')->middleware('jwt.verify');
-Route::post('addanggota','bukuController@addbuku')->middleware('jwt.verify');
-Route::put('updateanggota/{anggota}','bukuController@updatebuku')->middleware('jwt.verify');
-Route::delete('deleteanggota/{anggota}','bukuController@destroy')->middleware('jwt.verify');
+Route::post('searchanggota','anggotaController@search')->middleware('jwt.verify');
+Route::post('addanggota','anggotaController@addanggota')->middleware('jwt.verify');
+Route::put('updateanggota/{anggota}','anggotaController@updateanggota')->middleware('jwt.verify');
+Route::delete('deleteanggota/{anggota}','anggotaController@destroy')->middleware('jwt.verify');

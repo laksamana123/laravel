@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Anggota;
 use Session;
 use Auth;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -48,27 +49,27 @@ class anggotaController extends Controller
             $anggota = anggota::where('id',$id)->update([
                 'nama_anggota' => $req->get('nama_anggota'),
                 'alamat' => $req->get('alamat'),
-                'telp' => $req->get('telp'),
+                'telepon' => $req->get('telepon'),
             ]);
             if($anggota){
-                $status = "Data anggota berhasil ditambahkan :)";
+                $status = "Data anggota berhasil diperbarui :)";
                 return response()->json(compact('status'));
             }
             else{
-                $status = "Data anggota gagal ditambahkan :(";
+                $status = "Data anggota gagal diperbarui :(";
                 return response()->json(compact('status'));
             }
         }
         public function destroy($id){
-            $nama = anggota::where('id',$id)->get('nama_anggota');
+            $nama = anggota::where('id',$id)->first();
             $hapus = anggota::where('id',$id)->delete();
             if($hapus){
-                $status = "Data anggota bernama ".$nama." berhasil dihapus :)";
-                return response()->json(compact('status','nama'));
+                $status = "Data anggota bernama ".$nama->nama_anggota." berhasil dihapus :)";
+                return response()->json(compact('status'));
             }
             else{
-                $status = "Data anggota bernama ".$nama." gagal dihapus :(";
-                return response()->json(compact('status','nama'));
+                $status = "Data anggota bernama ".$nama->nama_anggota." gagal dihapus :(";
+                return response()->json(compact('status'));
             }
         }
         public function search(Request $req){
