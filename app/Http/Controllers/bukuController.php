@@ -15,7 +15,7 @@ use DB;
 class bukuController extends Controller
 {
     public function addbuku(Request $req){
-    $validator = Validator::make($request->all(),[
+    $validator = Validator::make($req->all(),[
         'judul' => 'required',
         'penerbit' => 'required',
         'pengarang' => 'required|string',
@@ -38,7 +38,7 @@ class bukuController extends Controller
     }
     }
     public function updatebuku($id,Request $req){
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($req->all(),[
             'judul' => 'required',
             'penerbit' => 'required',
             'pengarang' => 'required|string',
@@ -61,15 +61,15 @@ class bukuController extends Controller
         }
     }
     public function destroy($id){
-        $nama = buku::where('id',$id)->get('judul');
+        $nama = buku::where('id',$id)->first();
         $hapus = buku::where('id',$id)->delete();
         if($hapus){
-            $status = "Data buku berjudul ".$nama." berhasil dihapus :)";
-            return response()->json(compact('status','nama'));
+            $status = "Data buku berjudul ".$nama->judul." berhasil dihapus :)";
+            return response()->json(compact('status'));
         }
         else{
             $status = "Data buku berjudul ".$nama." gagal dihapus :(";
-            return response()->json(compact('status','nama'));
+            return response()->json(compact('status'));
         }
     }
     public function search(Request $req){
