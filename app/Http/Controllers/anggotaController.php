@@ -14,10 +14,18 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 class anggotaController extends Controller
 {
     public function addanggota(Request $req){
+        $validator = Validator::make($req->all(),[
+            'nama_anggota' => 'required',
+            'alamat' => 'required',
+            'telepon' => 'required',
+        ]);
+        if($validator->fails()){
+            return response()->json('Data salah / data belum lengkap');
+        }
         $anggota = Anggota::create([
             'nama_anggota' => $req->get('nama_anggota'),
             'alamat' => $req->get('alamat'),
-            'telp' => $req->get('telp'),
+            'telepon' => $req->get('telepon'),
         ]);
         if($anggota){
             $status = "Data anggota berhasil ditambahkan :)";
