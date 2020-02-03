@@ -88,7 +88,7 @@ class UserController extends Controller
     }
     public function destroy($id){
         $level =Auth::user()->id_level;
-        if($level == 1){
+        if($level == 2){
             $hapus = User::where('id',$id)->delete();
             if($hapus){
             $status = "Data berhasil dihapus :)";

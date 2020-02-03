@@ -13,15 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
 //petugas
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@login');
 Route::put('update/{user}','userController@updatepetugas')->middleware('jwt.verify');
 Route::get('/',function(){
-    return Auth::user();
+    return Auth::user()->id_level;
 })->middleware('jwt.verify');
 Route::delete('deleteuser/{user}','userController@destroy')->middleware('jwt.verify');
 //buku
@@ -34,3 +32,6 @@ Route::post('searchanggota','anggotaController@search')->middleware('jwt.verify'
 Route::post('addanggota','anggotaController@addanggota')->middleware('jwt.verify');
 Route::put('updateanggota/{anggota}','anggotaController@updateanggota')->middleware('jwt.verify');
 Route::delete('deleteanggota/{anggota}','anggotaController@destroy')->middleware('jwt.verify');
+//peminjaman
+Route::post('addpinjam','peminjamanController@insert')->middleware('jwt.verify');
+Route::get('showpinjam/{id}','peminjamanController@show')->middleware('jwt.verify');
